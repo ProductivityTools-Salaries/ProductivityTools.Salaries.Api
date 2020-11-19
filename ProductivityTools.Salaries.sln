@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Sallaries.Api", "ProductivityTools.Sallaries.Api\ProductivityTools.Sallaries.Api.csproj", "{908DD838-E4DA-45E7-9E2B-E7DBD9823B3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Sallaries.Api", "ProductivityTools.Salaries.Api\ProductivityTools.Salaries.Api.csproj", "{908DD838-E4DA-45E7-9E2B-E7DBD9823B3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Sallaries.Contract", "ProductivityTools.Sallaries.Contract\ProductivityTools.Sallaries.Contract.csproj", "{DE904E2B-76E7-4027-8037-C320D35B82FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Sallaries.Contract", "ProductivityTools.Salaries.Contract\ProductivityTools.Salaries.Contract.csproj", "{DE904E2B-76E7-4027-8037-C320D35B82FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
