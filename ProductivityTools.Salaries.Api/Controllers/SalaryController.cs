@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProductivityTools.Sallaries.Controllers
 {
-    public class SallaryController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class SalaryController : Controller
     {
-
+        [HttpGet("Test")]
         public string Test ()
         {
             return "pawel";

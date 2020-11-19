@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProductivityTools.Sallaries.Contract
+namespace ProductivityTools.Sallaries.Api.Contract
 {
     public class Sallary
     {
