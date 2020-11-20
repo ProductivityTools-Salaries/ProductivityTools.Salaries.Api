@@ -14,7 +14,7 @@ namespace ProductivityTools.Salaries.Api.DbUp
         {
             IConfigurationRoot configuration =
                 new ConfigurationBuilder()
-                .AddMasterConfiguration(force:true)
+                .AddMasterConfiguration(configName: "ProductivityTools.Salaries.Api.json", force: true)
                 .Build();
 
             var masterConnectionString = configuration["ConnectionString"];
