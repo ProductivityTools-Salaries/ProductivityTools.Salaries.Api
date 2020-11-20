@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Salaries.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Salaries.Api.Contract", "ProductivityTools.Salaries.Api.Contract\ProductivityTools.Salaries.Api.Contract.csproj", "{DE904E2B-76E7-4027-8037-C320D35B82FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Salaries.Api.DbUp", "ProductivityTools.Salaries.Api.DbUp\ProductivityTools.Salaries.Api.DbUp.csproj", "{7F91FFCE-2A14-4033-BDE1-CFE451BF8435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Salaries.Api.DbUp", "ProductivityTools.Salaries.Api.DbUp\ProductivityTools.Salaries.Api.DbUp.csproj", "{7F91FFCE-2A14-4033-BDE1-CFE451BF8435}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Salaries.Api.Database", "ProductivityTools.Salaries.Api.Database\ProductivityTools.Salaries.Api.Database.csproj", "{CB6B16A6-A7AE-493D-99D1-2C0B20557175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Salaries.Api.Database", "ProductivityTools.Salaries.Api.Database\ProductivityTools.Salaries.Api.Database.csproj", "{CB6B16A6-A7AE-493D-99D1-2C0B20557175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

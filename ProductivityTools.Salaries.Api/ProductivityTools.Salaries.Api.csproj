@@ -9,5 +9,10 @@
     <PackageReference Include="ProductivityTools.MasterConfiguration" Version="2.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProductivityTools.Salaries.Api.Contract\ProductivityTools.Salaries.Api.Contract.csproj" />
+    <ProjectReference Include="..\ProductivityTools.Salaries.Api.Database\ProductivityTools.Salaries.Api.Database.csproj" />
+  </ItemGroup>
+
 
 </Project>

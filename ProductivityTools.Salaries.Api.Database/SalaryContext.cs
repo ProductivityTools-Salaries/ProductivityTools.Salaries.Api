@@ -14,12 +14,19 @@ namespace ProductivityTools.Salaries.Api.Database
             this.configuration = configuration;
         }
 
-        public DbSet<Sallary> Sallaries { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("ConnectionString"));
+            var connectionString = configuration["ConnectionString"];
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Salary>().ToTable("Salary","s").HasKey("SalaryId");
+          
         }
     }
 }
