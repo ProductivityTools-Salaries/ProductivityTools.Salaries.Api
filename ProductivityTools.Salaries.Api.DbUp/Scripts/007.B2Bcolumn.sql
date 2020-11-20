@@ -1,0 +1,1 @@
+ALTER TABLE [s].[Salary] ADD B2b BIT
