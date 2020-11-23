@@ -20,21 +20,27 @@ namespace ProductivityTools.Sallaries.Controllers
         }
 
         [HttpGet("Test")]
-        public string Test ()
+        public string Test()
         {
             return "pawel";
         }
 
-        [HttpGet("List")]
-        public List<Salary> GetSallaries()
+        [HttpPost("List")]
+        public List<Salary> GetSallaries(Salary filter)
         {
-            var salaries=SalaryContext.Salaries.ToList();
-            return salaries;
+            var salaries = SalaryContext.Salaries.AsQueryable();
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                salaries=salaries.Where(x=>x.Name.Contains(filter.Name));
+            }
+
+            var result=salaries.ToList();
+            return result;
         }
 
         public IActionResult Index()
         {
             return View();
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+        }
     }
 }
