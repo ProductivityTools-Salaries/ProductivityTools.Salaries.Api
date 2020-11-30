@@ -34,6 +34,10 @@ namespace ProductivityTools.Sallaries.Controllers
                 salaries=salaries.Where(x=>x.Name.Contains(filter.Name));
             }
 
+            if (!string.IsNullOrEmpty(filter.Company))
+            {
+                salaries = salaries.Where(x => x.Company.Contains(filter.Company));
+            }
             var result=salaries.ToList();
             return result;
         }
