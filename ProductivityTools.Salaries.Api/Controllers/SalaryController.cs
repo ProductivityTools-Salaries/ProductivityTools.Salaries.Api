@@ -42,6 +42,23 @@ namespace ProductivityTools.Sallaries.Controllers
             return result;
         }
 
+        [HttpPost("Update")]
+        public IActionResult UdpdateSalary(Salary salary)
+        {
+            
+            return Ok("fs");
+
+        }
+
+        [HttpPost("Add")]
+        public IActionResult AddSalary(Salary salary)
+        {
+            SalaryContext.Add(salary);
+            SalaryContext.SaveChanges();
+            return Ok("fs");
+
+        }
+
         public IActionResult Index()
         {
             return View();
