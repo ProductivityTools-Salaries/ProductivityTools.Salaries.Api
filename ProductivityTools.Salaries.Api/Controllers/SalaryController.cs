@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductivityTools.Salaries.Api.Database;
@@ -26,7 +27,7 @@ namespace ProductivityTools.Sallaries.Controllers
         }
 
         [HttpPost("List")]
-        public List<Salary> GetSallaries(Salary filter)
+        public IEnumerable<Salary> GetSallaries(Salary filter)
         {
             var salaries = SalaryContext.Salaries.AsQueryable();
             if (!string.IsNullOrEmpty(filter.Name))
@@ -38,7 +39,12 @@ namespace ProductivityTools.Sallaries.Controllers
             {
                 salaries = salaries.Where(x => x.Company.Contains(filter.Company));
             }
-            var result=salaries.ToList();
+
+            if (!string.IsNullOrEmpty(filter.Comment))
+            {
+                salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
+            }
+            var result = salaries.OrderByDescending(x => x.CreationDate);
             return result;
         }
 
@@ -54,6 +60,16 @@ namespace ProductivityTools.Sallaries.Controllers
         public IActionResult AddSalary(Salary salary)
         {
             SalaryContext.Add(salary);
+            SalaryContext.SaveChanges();
+            return Ok("fs");
+        }
+
+        [HttpPost("Remove")]
+        public IActionResult RemoveSalary(int salaryId)
+        {
+
+            var salary = SalaryContext.Salaries.Find(salaryId);
+            SalaryContext.Remove(salary);
             SalaryContext.SaveChanges();
             return Ok("fs");
 
