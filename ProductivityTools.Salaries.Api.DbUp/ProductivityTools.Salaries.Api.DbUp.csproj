@@ -13,6 +13,7 @@
     <None Remove="Scripts\005.SourceOfInfo.sql" />
     <None Remove="Scripts\006.CarAndExpectation.sql" />
     <None Remove="Scripts\007.B2Bcolumn.sql" />
+    <None Remove="Scripts\008.Expectation.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
     <EmbeddedResource Include="Scripts\004.CreationDateName.sql" />
     <EmbeddedResource Include="Scripts\005.SourceOfInfo.sql" />
     <EmbeddedResource Include="Scripts\006.CarAndExpectation.sql" />
+    <EmbeddedResource Include="Scripts\008.Expectation.sql" />
     <EmbeddedResource Include="Scripts\007.B2Bcolumn.sql" />
   </ItemGroup>
 

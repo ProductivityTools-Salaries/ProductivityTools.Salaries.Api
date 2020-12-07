@@ -32,7 +32,7 @@ namespace ProductivityTools.Sallaries.Controllers
             var salaries = SalaryContext.Salaries.AsQueryable();
             if (!string.IsNullOrEmpty(filter.Name))
             {
-                salaries=salaries.Where(x=>x.Name.Contains(filter.Name));
+                salaries = salaries.Where(x => x.Name.Contains(filter.Name));
             }
 
             if (!string.IsNullOrEmpty(filter.Company))
@@ -41,6 +41,10 @@ namespace ProductivityTools.Sallaries.Controllers
             }
 
             if (!string.IsNullOrEmpty(filter.Comment))
+            {
+                salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
+            }
+            if (filter.B2b.HasValue && filter.B2b.Value)
             {
                 salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
             }
@@ -61,7 +65,7 @@ namespace ProductivityTools.Sallaries.Controllers
         {
             SalaryContext.Add(salary);
             SalaryContext.SaveChanges();
-            return Ok("fs");
+            return Ok(salary);
         }
 
         [HttpPost("Remove")]
@@ -71,8 +75,7 @@ namespace ProductivityTools.Sallaries.Controllers
             var salary = SalaryContext.Salaries.Find(salaryId);
             SalaryContext.Remove(salary);
             SalaryContext.SaveChanges();
-            return Ok("fs");
-
+            return Ok($"Removed {salaryId}");
         }
 
         public IActionResult Index()
