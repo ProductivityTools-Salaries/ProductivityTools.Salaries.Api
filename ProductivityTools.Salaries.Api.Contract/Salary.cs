@@ -13,7 +13,6 @@ namespace ProductivityTools.Sallaries.Api.Contract
         public DateTime CreationDate { get; set; }
         public string Name { get; set; }
         public string Source { get; set; }
-        public string Expectation { get; set; }
         public bool? B2b { get; set; }
     }
 }

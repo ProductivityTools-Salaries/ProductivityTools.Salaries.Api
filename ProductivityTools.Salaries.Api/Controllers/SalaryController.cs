@@ -44,9 +44,9 @@ namespace ProductivityTools.Sallaries.Controllers
             {
                 salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
             }
-            if (filter.B2b.HasValue && filter.B2b.Value)
+            if (filter.B2b.HasValue)
             {
-                salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
+                salaries = salaries.Where(x => x.B2b==filter.B2b.Value);
             }
             var result = salaries.OrderByDescending(x => x.CreationDate);
             return result;
