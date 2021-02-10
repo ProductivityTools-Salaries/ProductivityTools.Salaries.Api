@@ -1,0 +1,2 @@
+ALTER TABLE [s].[Salary]
+ALTER COLUMN [Value] INT

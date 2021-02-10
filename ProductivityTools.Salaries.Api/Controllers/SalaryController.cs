@@ -65,9 +65,11 @@ namespace ProductivityTools.Sallaries.Controllers
                 switch (filter.OrderBy)
                 {
                     case "position": salaries = salaries.OrderBy(x => x.Position); break;
+                    case "value": salaries = salaries.OrderBy(x => x.Value); break;
                     case "b2b": salaries = salaries.OrderBy(x => x.B2b); break;
                     case "company": salaries = salaries.OrderBy(x => x.Company); break;
                     case "name": salaries = salaries.OrderBy(x => x.Name); break;
+                    case "creationDate": salaries = salaries.OrderBy(x => x.CreationDate); break;
                     default: salaries = salaries.OrderBy(x => x.CreationDate); break;
                 }
             }
@@ -77,9 +79,11 @@ namespace ProductivityTools.Sallaries.Controllers
                 switch (filter.OrderByDescending)
                 {
                     case "position": salaries = salaries.OrderByDescending(x => x.Position); break;
+                    case "value": salaries = salaries.OrderByDescending(x => x.Value); break;
                     case "b2b": salaries = salaries.OrderByDescending(x => x.B2b); break;
                     case "company": salaries = salaries.OrderByDescending(x => x.Company); break;
                     case "name": salaries = salaries.OrderByDescending(x => x.Name); break;
+                    case "creationDate": salaries = salaries.OrderByDescending(x => x.CreationDate); break;
                     default: salaries = salaries.OrderByDescending(x => x.CreationDate); break;
                 }
             }

@@ -6,7 +6,7 @@ namespace ProductivityTools.Sallaries.Api.Contract
     {
         public int SalaryId { get; set; }
         public string Position { get; set; }
-        public string Value { get; set; }
+        public int Value { get; set; }
         public string Comment { get; set; }
         public string Company { get; set; }
         public int? ValueConfirmed { get; set; }
