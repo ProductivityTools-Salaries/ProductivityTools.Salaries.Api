@@ -29,68 +29,68 @@ namespace ProductivityTools.Sallaries.Controllers
         }
 
         [HttpPost("List")]
-       // [Authorize]
+        [Authorize]
         public IEnumerable<Salary> GetSallaries(SalaryFilter filter)
         {
             var salaries = SalaryContext.Salaries.AsQueryable();
-            //if (!string.IsNullOrEmpty(filter.Position))
-            //{
-            //    salaries = salaries.Where(x => x.Position.Contains(filter.Position));
-            //}
-            //if (filter.B2b.HasValue)
-            //{
-            //    salaries = salaries.Where(x => x.B2b == filter.B2b.Value);
-            //}
+            if (!string.IsNullOrEmpty(filter.Position))
+            {
+                salaries = salaries.Where(x => x.Position.Contains(filter.Position));
+            }
+            if (filter.B2b.HasValue)
+            {
+                salaries = salaries.Where(x => x.B2b == filter.B2b.Value);
+            }
 
-            //if (!string.IsNullOrEmpty(filter.Company))
-            //{
-            //    salaries = salaries.Where(x => x.Company.Contains(filter.Company));
-            //}
+            if (!string.IsNullOrEmpty(filter.Company))
+            {
+                salaries = salaries.Where(x => x.Company.Contains(filter.Company));
+            }
 
-            //if (!string.IsNullOrEmpty(filter.Name))
-            //{
-            //    salaries = salaries.Where(x => x.Name.Contains(filter.Name));
-            //}
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                salaries = salaries.Where(x => x.Name.Contains(filter.Name));
+            }
 
-            //if (!string.IsNullOrEmpty(filter.Source))
-            //{
-            //    salaries = salaries.Where(x => x.Source.Contains(filter.Source));
-            //}
+            if (!string.IsNullOrEmpty(filter.Source))
+            {
+                salaries = salaries.Where(x => x.Source.Contains(filter.Source));
+            }
 
-            //if (!string.IsNullOrEmpty(filter.Comment))
-            //{
-            //    salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
-            //}
+            if (!string.IsNullOrEmpty(filter.Comment))
+            {
+                salaries = salaries.Where(x => x.Comment.Contains(filter.Comment));
+            }
 
-            //if (!string.IsNullOrEmpty(filter.OrderBy))
-            //{
-            //    switch (filter.OrderBy)
-            //    {
-            //        case "position": salaries = salaries.OrderBy(x => x.Position); break;
-            //        case "value": salaries = salaries.OrderBy(x => x.Value); break;
-            //        case "b2b": salaries = salaries.OrderBy(x => x.B2b); break;
-            //        case "company": salaries = salaries.OrderBy(x => x.Company); break;
-            //        case "name": salaries = salaries.OrderBy(x => x.Name); break;
-            //        case "creationDate": salaries = salaries.OrderBy(x => x.CreationDate); break;
-            //        default: salaries = salaries.OrderBy(x => x.CreationDate); break;
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(filter.OrderBy))
+            {
+                switch (filter.OrderBy)
+                {
+                    case "position": salaries = salaries.OrderBy(x => x.Position); break;
+                    case "value": salaries = salaries.OrderBy(x => x.Value); break;
+                    case "b2b": salaries = salaries.OrderBy(x => x.B2b); break;
+                    case "company": salaries = salaries.OrderBy(x => x.Company); break;
+                    case "name": salaries = salaries.OrderBy(x => x.Name); break;
+                    case "creationDate": salaries = salaries.OrderBy(x => x.CreationDate); break;
+                    default: salaries = salaries.OrderBy(x => x.CreationDate); break;
+                }
+            }
 
-            //if (!string.IsNullOrEmpty(filter.OrderByDescending))
-            //{
-            //    switch (filter.OrderByDescending)
-            //    {
-            //        case "position": salaries = salaries.OrderByDescending(x => x.Position); break;
-            //        case "value": salaries = salaries.OrderByDescending(x => x.Value); break;
-            //        case "b2b": salaries = salaries.OrderByDescending(x => x.B2b); break;
-            //        case "company": salaries = salaries.OrderByDescending(x => x.Company); break;
-            //        case "name": salaries = salaries.OrderByDescending(x => x.Name); break;
-            //        case "creationDate": salaries = salaries.OrderByDescending(x => x.CreationDate); break;
-            //        default: salaries = salaries.OrderByDescending(x => x.CreationDate); break;
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(filter.OrderByDescending))
+            {
+                switch (filter.OrderByDescending)
+                {
+                    case "position": salaries = salaries.OrderByDescending(x => x.Position); break;
+                    case "value": salaries = salaries.OrderByDescending(x => x.Value); break;
+                    case "b2b": salaries = salaries.OrderByDescending(x => x.B2b); break;
+                    case "company": salaries = salaries.OrderByDescending(x => x.Company); break;
+                    case "name": salaries = salaries.OrderByDescending(x => x.Name); break;
+                    case "creationDate": salaries = salaries.OrderByDescending(x => x.CreationDate); break;
+                    default: salaries = salaries.OrderByDescending(x => x.CreationDate); break;
+                }
+            }
 
-            var result = salaries.ToList();
+            var result = salaries;
             return result;
         }
 
