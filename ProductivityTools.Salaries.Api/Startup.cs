@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using ProductivityTools.Salaries.Api.Database;
 
 namespace ProductivityTools.Sallaries
@@ -29,7 +30,7 @@ namespace ProductivityTools.Sallaries
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            IdentityModelEventSource.ShowPII = true;
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -51,6 +52,13 @@ namespace ProductivityTools.Sallaries
 
             services.AddDbContext<SalaryContext>();
             services.AddControllers();
+
+
+            services.AddLogging(opt =>
+            {
+                opt.AddConsole();
+                opt.AddDebug();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +70,7 @@ namespace ProductivityTools.Sallaries
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
