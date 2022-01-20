@@ -31,12 +31,12 @@ pipeline {
         stage('build') {
             steps {
 				echo 'starting bddduild'
-                bat('dotnet publish ProductivityTools.GetTask3.Server.sln -c Release')
+                bat('dotnet publish ProductivityTools.Salaries.Api.sln -c Release')
             }
         }
         stage('deleteDbMigratorDir') {
             steps {
-                bat('if exist "C:\\Bin\\GetTask3DdbMigration" RMDIR /Q/S "C:\\Bin\\GetTask3DdbMigration"')
+                bat('if exist "C:\\Bin\\SalariesDdbMigration" RMDIR /Q/S "C:\\Bin\\SalariesDdbMigration"')
             }
         }
         stage('copyDbMigratorFiles') {
