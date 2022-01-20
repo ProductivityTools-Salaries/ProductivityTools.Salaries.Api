@@ -67,7 +67,7 @@ pipeline {
         }
         stage('copyIisFiles') {
             steps {
-                bat('xcopy "Src\\Server\\ProductivityTools.Salaries.Api\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\Salaries\\" /O /X /E /H /K')				              
+                bat('xcopy "Src\\Server\\ProductivityTools.Salaries.Api\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\Salaries\\" /O /X /E /H /K')				              
             }
         }
 
