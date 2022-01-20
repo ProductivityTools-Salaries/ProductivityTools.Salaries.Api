@@ -41,39 +41,39 @@ pipeline {
         }
         stage('copyDbMigratorFiles') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\GetTask3DdbMigration\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\SalariesDdbMigration\\" /O /X /E /H /K')
             }
         }
 
         stage('runDbMigratorFiles') {
             steps {
-                bat('C:\\Bin\\GetTask3DdbMigration\\ProductivityTools.GetTask3.Server.DbUp.exe')
+                bat('C:\\Bin\\SalariesDdbMigration\\ProductivityTools.Salaries.Api.DbUp.exe')
             }
         }
 
-        stage('stopMeetingsOnIis') {
+        stage('stopSiteOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:GetTask3')
+                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:Salaries')
             }
         }
 
         stage('deleteIisDir') {
             steps {
                 retry(5) {
-                    bat('if exist "C:\\Bin\\GetTask3" RMDIR /Q/S "C:\\Bin\\GetTask3"')
+                    bat('if exist "C:\\Bin\\Salaries" RMDIR /Q/S "C:\\Bin\\Salaries"')
                 }
 
             }
         }
         stage('copyIisFiles') {
             steps {
-                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\GetTask3\\" /O /X /E /H /K')				              
+                bat('xcopy "Src\\Server\\ProductivityTools.Salaries.Api\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\Salaries\\" /O /X /E /H /K')				              
             }
         }
 
         stage('startMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:GetTask3')
+                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:Salaries')
             }
         }
         stage('byebye') {
