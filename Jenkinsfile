@@ -41,7 +41,7 @@ pipeline {
         }
         stage('copyDbMigratorFiles') {
             steps {
-                bat('xcopy "ProductivityTools.GetTask3.Server.DbUp\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\GetTask3DdbMigration\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\GetTask3DdbMigration\\" /O /X /E /H /K')
             }
         }
 
