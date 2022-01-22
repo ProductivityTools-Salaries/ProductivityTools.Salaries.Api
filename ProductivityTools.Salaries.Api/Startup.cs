@@ -58,18 +58,20 @@ namespace ProductivityTools.Sallaries
             {
                 opt.AddConsole();
                 opt.AddDebug();
+                
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+           // if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //temporary as problems on the iiss
+           // app.UseHttpsRedirection();
             app.UseAuthentication();
 
             app.UseRouting();
