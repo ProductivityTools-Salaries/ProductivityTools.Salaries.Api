@@ -71,7 +71,7 @@ namespace ProductivityTools.Sallaries
             }
 
             //temporary as problems on the iiss
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
             app.UseAuthentication();
 
             app.UseRouting();
