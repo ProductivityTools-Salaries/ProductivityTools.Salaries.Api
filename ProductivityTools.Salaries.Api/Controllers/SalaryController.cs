@@ -111,6 +111,7 @@ namespace ProductivityTools.Sallaries.Controllers
         }
 
         [HttpPost("Remove")]
+        [Authorize]
         public IActionResult RemoveSalary(int salaryId)
         {
             var salary = SalaryContext.Salaries.Find(salaryId);
@@ -120,6 +121,7 @@ namespace ProductivityTools.Sallaries.Controllers
         }
 
         [HttpPost("Get")]
+        [Authorize]
         public IActionResult GetSalary(int salaryId)
         {
 
