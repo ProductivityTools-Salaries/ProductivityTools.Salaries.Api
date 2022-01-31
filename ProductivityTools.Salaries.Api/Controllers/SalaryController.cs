@@ -122,7 +122,7 @@ namespace ProductivityTools.Sallaries.Controllers
 
         [HttpPost("Get")]
         [Authorize]
-        public IActionResult GetSalary(int salaryId)
+        public IActionResult GetSalary([FromQuery]int salaryId)
         {
 
             var salary = SalaryContext.Salaries.Find(salaryId);
