@@ -17,6 +17,7 @@
     <None Remove="Scripts\009.B2BRequired.sql" />
     <None Remove="Scripts\010.Collation.sql" />
     <None Remove="Scripts\011.ValueType.sql" />
+    <None Remove="Scripts\012.Bonus.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="Scripts\004.CreationDateName.sql" />
     <EmbeddedResource Include="Scripts\005.SourceOfInfo.sql" />
     <EmbeddedResource Include="Scripts\006.CarAndExpectation.sql" />
+    <EmbeddedResource Include="Scripts\012.Bonus.sql" />
     <EmbeddedResource Include="Scripts\011.ValueType.sql" />
     <EmbeddedResource Include="Scripts\010.Collation.sql" />
     <EmbeddedResource Include="Scripts\009.B2BRequired.sql" />
