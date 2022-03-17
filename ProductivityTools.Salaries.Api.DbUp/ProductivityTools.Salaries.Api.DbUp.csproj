@@ -20,7 +20,7 @@
     <None Remove="Scripts\012.Bonus.sql" />
     <None Remove="Scripts\013.Bonus.sql" />
     <None Remove="Scripts\014.Bonus.sql" />
-    <None Remove="Scripts\015 .Bonus.sql" />
+    <None Remove="Scripts\015.Bonus.sql" />
     <None Remove="Scripts\016.Bonus.sql" />
     <None Remove="Scripts\017.Bonus.sql" />
   </ItemGroup>
@@ -34,7 +34,7 @@
     <EmbeddedResource Include="Scripts\006.CarAndExpectation.sql" />
     <EmbeddedResource Include="Scripts\017.Bonus.sql" />
     <EmbeddedResource Include="Scripts\016.Bonus.sql" />
-    <EmbeddedResource Include="Scripts\015 .Bonus.sql" />
+    <EmbeddedResource Include="Scripts\015.Bonus.sql" />
     <EmbeddedResource Include="Scripts\014.Bonus.sql" />
     <EmbeddedResource Include="Scripts\013.Bonus.sql" />
     <EmbeddedResource Include="Scripts\012.Bonus.sql" />

@@ -68,6 +68,8 @@ namespace ProductivityTools.Sallaries.Controllers
                 {
                     case "position": salaries = salaries.OrderBy(x => x.Position); break;
                     case "value": salaries = salaries.OrderBy(x => x.Value); break;
+                    case "totalvalue": salaries = salaries.OrderBy(x => x.Total); break;
+                    case "equity": salaries = salaries.OrderBy(x => x.Equity); break;
                     case "b2b": salaries = salaries.OrderBy(x => x.B2b); break;
                     case "company": salaries = salaries.OrderBy(x => x.Company); break;
                     case "name": salaries = salaries.OrderBy(x => x.Name); break;
@@ -82,6 +84,8 @@ namespace ProductivityTools.Sallaries.Controllers
                 {
                     case "position": salaries = salaries.OrderByDescending(x => x.Position); break;
                     case "value": salaries = salaries.OrderByDescending(x => x.Value); break;
+                    case "totalvalue": salaries = salaries.OrderByDescending(x => x.Total); break;
+                    case "equity": salaries = salaries.OrderByDescending(x => x.Equity); break;
                     case "b2b": salaries = salaries.OrderByDescending(x => x.B2b); break;
                     case "company": salaries = salaries.OrderByDescending(x => x.Company); break;
                     case "name": salaries = salaries.OrderByDescending(x => x.Name); break;
@@ -122,7 +126,7 @@ namespace ProductivityTools.Sallaries.Controllers
 
         [HttpPost("Get")]
         [Authorize]
-        public IActionResult GetSalary([FromQuery]int salaryId)
+        public IActionResult GetSalary([FromQuery] int salaryId)
         {
 
             var salary = SalaryContext.Salaries.Find(salaryId);
