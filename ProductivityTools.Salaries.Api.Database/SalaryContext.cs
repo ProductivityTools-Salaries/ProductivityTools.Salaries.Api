@@ -26,7 +26,7 @@ namespace ProductivityTools.Salaries.Api.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Salary>().ToTable("Salary","s").HasKey("SalaryId");
-          
+            modelBuilder.Entity<Salary>().Property(x => x.Total).ValueGeneratedOnAddOrUpdate();
         }
     }
 }
