@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using ProductivityTools.Salaries.Api.Database;
 
 namespace ProductivityTools.Sallaries
@@ -37,8 +38,15 @@ namespace ProductivityTools.Sallaries
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://identityserver.productivitytools.tech:8010";
-                options.Audience = "Salaries.API";
+                options.Authority = "https://securetoken.google.com/ptsalariesprod";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://securetoken.google.com/ptsalariesprod",
+                    ValidateAudience = true,
+                    ValidAudience = "ptsalariesprod",
+                    ValidateLifetime = true
+                };
             });
 
             services.AddCors(options =>

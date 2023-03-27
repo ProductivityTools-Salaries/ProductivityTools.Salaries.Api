@@ -5,6 +5,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductivityTools.Salaries.Api;
+using ProductivityTools.Salaries.Api.Controllers;
 using ProductivityTools.Salaries.Api.Database;
 using ProductivityTools.Salaries.Api.Views;
 using ProductivityTools.Sallaries.Api.Contract;
@@ -12,8 +14,9 @@ using ProductivityTools.Sallaries.Api.Contract;
 namespace ProductivityTools.Sallaries.Controllers
 {
     [ApiController]
+    [AuthenticatedUsers]
     [Route("[controller]")]
-    public class SalaryController : Controller
+    public class SalaryController : AuthController
     {
         SalaryContext SalaryContext;
 
