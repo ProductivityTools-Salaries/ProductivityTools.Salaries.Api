@@ -41,7 +41,7 @@ pipeline {
         }
         stage('copyDbMigratorFiles') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\netcoreapp3.1\\publish\\" "C:\\Bin\\SalariesDdbMigration\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\SalariesDdbMigration\\" /O /X /E /H /K')
             }
         }
 
