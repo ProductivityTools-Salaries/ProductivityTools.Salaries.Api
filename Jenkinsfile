@@ -24,7 +24,7 @@ pipeline {
         stage('clone') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'master',
+                git branch: 'main',
                 url: 'https://github.com/pwujczyk/ProductivityTools.Salaries.Api'
             }
         }
@@ -53,27 +53,27 @@ pipeline {
 
         stage('stopSiteOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:Salaries')
+                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTSalaries')
             }
         }
 
         stage('deleteIisDir') {
             steps {
                 retry(5) {
-                    bat('if exist "C:\\Bin\\Salaries" RMDIR /Q/S "C:\\Bin\\Salaries"')
+                    bat('if exist "C:\\Bin\\IIS\\PTSalaries" RMDIR /Q/S "C:\\Bin\\IIS\\PTSalaries"')
                 }
 
             }
         }
         stage('copyIisFiles') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\Salaries\\" /O /X /E /H /K')				              
+                bat('xcopy "ProductivityTools.Salaries.Api\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\IIS\\PTSalaries\\" /O /X /E /H /K')				              
             }
         }
 
         stage('startMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:Salaries')
+                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTSalaries')
             }
         }
         stage('byebye') {
