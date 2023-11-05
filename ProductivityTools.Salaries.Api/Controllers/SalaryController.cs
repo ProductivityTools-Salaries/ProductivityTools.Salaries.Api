@@ -31,6 +31,13 @@ namespace ProductivityTools.Sallaries.Controllers
             return "pawel11111111111111111111111111111111111111111111111111111111111111111111";
         }
 
+        [HttpGet]
+        [Route("echo")]
+        public string echo(string name)
+        {
+            return $"Welcome request performed at {DateTime.Now} with param {name} on server {System.Environment.MachineName} to Application Salaries";
+        }
+
         [HttpPost("List")]
         [Authorize]
         public IEnumerable<Salary> GetSallaries(SalaryFilter filter)
