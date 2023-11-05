@@ -28,7 +28,7 @@ namespace ProductivityTools.Sallaries.Controllers
         [HttpGet("Test")]
         public string Test()
         {
-            return "pawel11111111111111111111111111111111111111111111111111111111111111111111";
+            return "Test";
         }
 
         [HttpGet]
