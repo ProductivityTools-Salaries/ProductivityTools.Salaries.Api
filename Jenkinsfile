@@ -35,12 +35,12 @@ pipeline {
         }
         stage('Delete databse migration directory') {
             steps {
-                bat('if exist "C:\\Bin\\DbMigration\\Salaries.Api" RMDIR /Q/S "C:\\Bin\\Salaries.Api"')
+                bat('if exist "C:\\Bin\\DbMigration\\PTSalaries.Api" RMDIR /Q/S "C:\\Bin\\DbMigration\\PTSalaries.Api"')
             }
         }
         stage('Copy database migration files') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net9.0\\publish\\" "C:\\Bin\\DbMigration\\Salaries.Api\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net9.0\\publish\\" "C:\\Bin\\DbMigration\\PTSalaries.Api\\" /O /X /E /H /K')
             }
         }
 
