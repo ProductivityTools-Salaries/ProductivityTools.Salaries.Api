@@ -40,7 +40,7 @@ pipeline {
         }
         stage('Copy database migration files') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\DbMigration\\Salaries.Api\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net9.0\\publish\\" "C:\\Bin\\DbMigration\\Salaries.Api\\" /O /X /E /H /K')
             }
         }
 
@@ -111,7 +111,7 @@ pipeline {
 
         stage('Copy web page to the IIS Bin directory') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\IIS\\PTSalaries\\" /O /X /E /H /K')				              
+                bat('xcopy "ProductivityTools.Salaries.Api\\bin\\Release\\net9.0\\publish\\" "C:\\Bin\\IIS\\PTSalaries\\" /O /X /E /H /K')				              
             }
         }
 
