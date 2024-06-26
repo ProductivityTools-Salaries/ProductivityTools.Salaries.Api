@@ -46,7 +46,7 @@ pipeline {
 
        stage('Run databse migration files') {
             steps {
-                bat('C:\\Bin\\DbMigration\\Salaries.Api\\ProductivityTools.Salaries.Api.DbUp.exe')
+                bat('C:\\Bin\\DbMigration\\PTSalaries.Api\\ProductivityTools.Salaries.Api.DbUp.exe')
             }
         }
 
