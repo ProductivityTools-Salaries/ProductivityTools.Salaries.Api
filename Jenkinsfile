@@ -15,67 +15,130 @@ pipeline {
 				echo "${env.WORKSPACE}"
 			}
 		}
-        stage('deleteWorkspace') {
+        stage('Delete Workspace') {
             steps {
                 deleteDir()
             }
         }
 
-        stage('clone') {
+        stage('Git Clone') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main',
-                url: 'https://github.com/pwujczyk/ProductivityTools.Salaries.Api'
+                url: 'https://github.com/ProductivityTools-Salaries/ProductivityTools.Salaries.Api'
             }
         }
-        stage('build') {
+        stage('Build solution') {
             steps {
-				echo 'starting bddduild'
-                bat('dotnet publish ProductivityTools.Salaries.Api.sln -c Release')
+                bat(script: 'dotnet publish ProductivityTools.Salaries.Api.sln -c Release', returnStdout: true)
             }
         }
-        stage('deleteDbMigratorDir') {
+        stage('Delete databse migration directory') {
             steps {
-                bat('if exist "C:\\Bin\\SalariesDdbMigration" RMDIR /Q/S "C:\\Bin\\SalariesDdbMigration"')
+                bat('if exist "C:\\Bin\\DbMigration\\Salaries.Api" RMDIR /Q/S "C:\\Bin\\Salaries.Api"')
             }
         }
-        stage('copyDbMigratorFiles') {
+        stage('Copy database migration files') {
             steps {
-                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\SalariesDdbMigration\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.Salaries.Api.DbUp\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\DbMigration\\Salaries.Api\\" /O /X /E /H /K')
             }
         }
 
-        stage('runDbMigratorFiles') {
+       stage('Run databse migration files') {
             steps {
-                bat('C:\\Bin\\SalariesDdbMigration\\ProductivityTools.Salaries.Api.DbUp.exe')
+                bat('C:\\Bin\\DbMigration\\Salaries.Api\\ProductivityTools.Salaries.Api.DbUp.exe')
             }
         }
 
-        stage('stopSiteOnIis') {
+        stage('Create page on the IIS') {
+            steps {
+                powershell('''
+                function CheckIfExist($Name){
+                    cd $env:SystemRoot\\system32\\inetsrv
+                    $exists = (.\\appcmd.exe list sites /name:$Name) -ne $null
+                    Write-Host $exists
+                    return  $exists
+                }
+                
+                 function Create($Name,$HttpbBnding,$PhysicalPath){
+                    $exists=CheckIfExist $Name
+                    if ($exists){
+                        write-host "Web page already existing"
+                    }
+                    else
+                    {
+                        write-host "Creating app pool"
+                        .\\appcmd.exe add apppool /name:$Name /managedRuntimeVersion:"v4.0" /managedPipelineMode:"Integrated"
+                        write-host "Creating webage"
+                        .\\appcmd.exe add site /name:$Name /bindings:http://$HttpbBnding /physicalpath:$PhysicalPath
+                        write-host "assign app pool to the website"
+                        .\\appcmd.exe set app "$Name/" /applicationPool:"$Name"
+
+
+                    }
+                }
+                Create "PTSalaries" "*:8004"  "C:\\Bin\\IIS\\PTSalaries"                
+                ''')
+            }
+        }
+
+        stage('Stop page on the IIS') {
             steps {
                 bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTSalaries')
             }
         }
 
-        stage('deleteIisDir') {
+		stage('Delete PTSalaries IIS directory') {
             steps {
-                retry(5) {
-                    bat('if exist "C:\\Bin\\IIS\\PTSalaries" RMDIR /Q/S "C:\\Bin\\IIS\\PTSalaries"')
-                }
+              powershell('''
+                if ( Test-Path "C:\\Bin\\IIS\\PTSalaries")
+                {
+                    while($true) {
+                        if ( (Remove-Item "C:\\Bin\\IIS\\PTSalaries" -Recurse *>&1) -ne $null)
+                        {  
+                            write-output "removing failed we should wait"
+                        }
+                        else 
+                        {
+                            break 
+                        } 
+                    }
+                  }
+              ''')
 
             }
         }
-        stage('copyIisFiles') {
+
+        stage('Copy web page to the IIS Bin directory') {
             steps {
                 bat('xcopy "ProductivityTools.Salaries.Api\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\IIS\\PTSalaries\\" /O /X /E /H /K')				              
             }
         }
 
-        stage('startMeetingsOnIis') {
+        stage('Start website on IIS') {
             steps {
                 bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTSalaries')
             }
         }
+
+        stage('Create Login PTSalaries on SQL2022') {
+             steps {
+                 bat('sqlcmd -S ".\\SQL2022" -q "CREATE LOGIN [IIS APPPOOL\\PTSalaries] FROM WINDOWS WITH DEFAULT_DATABASE=[PTSalaries];"')
+             }
+        }
+
+        stage('Create User PTSalaries on SQL2022') {
+             steps {
+                 bat('sqlcmd -S ".\\SQL2022" -q " USE PTSalaries;  CREATE USER [IIS APPPOOL\\PTSalaries]  FOR LOGIN [IIS APPPOOL\\PTSalaries];"')
+             }
+        }
+
+        stage('Give DBOwner permissions on SQL2022') {
+             steps {
+                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTSalaries;  ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\\PTSalaries];"')
+             }
+        }
+
         stage('byebye') {
             steps {
                 // Get some code from a GitHub repository

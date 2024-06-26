@@ -28,7 +28,7 @@ namespace ProductivityTools.Salaries.Api.Controllers
         [Route("AppName")]
         public string AppName()
         {
-            return "PTTransfers";
+            return "PTSalaries";
         }
 
         [HttpGet]
