@@ -77,7 +77,7 @@ pipeline {
 
                     }
                 }
-                Create "PTSalaries" "*:8005"  "C:\\Bin\\IIS\\PTSalaries"                
+                Create "PTSalaries" "*:8006"  "C:\\Bin\\IIS\\PTSalaries"                
                 ''')
             }
         }
