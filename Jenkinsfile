@@ -4,13 +4,13 @@ pipeline {
     agent any
 
     stages {
-        stage('hello') {
+        stage('Hello') {
             steps {
                 // Get some code from a GitHub repository
                 echo 'hello'
             }
         }
-		stage('workplacePath'){
+		stage('Print workpalce Path'){
 			steps{
 				echo "${env.WORKSPACE}"
 			}
