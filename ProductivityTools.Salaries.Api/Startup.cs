@@ -38,13 +38,13 @@ namespace ProductivityTools.Sallaries
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://securetoken.google.com/ptsalariesprod";
+                options.Authority = "https://securetoken.google.com/ptprojectsweb";
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = "https://securetoken.google.com/ptsalariesprod",
+                    ValidIssuer = "https://securetoken.google.com/ptprojectsweb",
                     ValidateAudience = true,
-                    ValidAudience = "ptsalariesprod",
+                    ValidAudience = "ptprojectsweb",
                     ValidateLifetime = true
                 };
             });
@@ -54,7 +54,7 @@ namespace ProductivityTools.Sallaries
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3000", "https://salariesweb.z35.web.core.windows.net", "https://ptservicestatus-309299231472.us-central1.run.app").AllowAnyHeader().AllowAnyMethod();
+                                      builder.WithOrigins("http://localhost:3000", "https://salariesweb.z35.web.core.windows.net", "https://ptservicestatus-309299231472.us-central1.run.app","https://pt-salaries.web.app","https://salaries.productivitytools.top").AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 
