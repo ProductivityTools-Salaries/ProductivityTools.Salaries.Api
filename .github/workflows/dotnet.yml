@@ -1,0 +1,101 @@
+name: .NET CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted # Assuming self-hosted Windows runner for IIS/SQL access
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Build solution
+      run: dotnet publish ProductivityTools.Salaries.Api.sln -c Release
+
+    - name: Delete database migration directory
+      shell: cmd
+      run: if exist "C:\Bin\DbMigration\PTSalaries.Api" RMDIR /Q /S "C:\Bin\DbMigration\PTSalaries.Api"
+
+    - name: Copy database migration files
+      shell: cmd
+      # Added robocopy to bypass Windows 260 character path limit
+      run: |
+        robocopy "ProductivityTools.Salaries.Api.DbUp\bin\Release\net9.0\publish" "C:\Bin\DbMigration\PTSalaries.Api" /E /IS /IT
+        if %ERRORLEVEL% LEQ 7 exit /b 0
+
+    - name: Run database migration
+      shell: cmd
+      run: C:\Bin\DbMigration\PTSalaries.Api\ProductivityTools.Salaries.Api.DbUp.exe
+
+    - name: Create IIS Site
+      shell: pwsh
+      run: |
+        function CheckIfExist($Name){
+            cd $env:SystemRoot\system32\inetsrv
+            $exists = (.\appcmd.exe list sites /name:$Name) -ne $null
+            return $exists
+        }
+        
+        function Create($Name,$HttpbBnding,$PhysicalPath){
+            $exists=CheckIfExist $Name
+            if ($exists){
+                Write-Host "Web page already existing"
+            }
+            else {
+                Write-Host "Creating app pool"
+                .\appcmd.exe add apppool /name:$Name /managedRuntimeVersion:"v4.0" /managedPipelineMode:"Integrated"
+                Write-Host "Creating webpage"
+                .\appcmd.exe add site /name:$Name /bindings:http://$HttpbBnding /physicalpath:$PhysicalPath
+                Write-Host "Assign app pool to the website"
+                .\appcmd.exe set app "$Name/" /applicationPool:"$Name"
+            }
+        }
+        Create "PTSalaries" "*:8006" "C:\Bin\IIS\PTSalaries"
+
+    - name: Stop IIS Site
+      shell: cmd
+      run: "%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTSalaries"
+
+    - name: Delete PTSalaries IIS directory
+      shell: pwsh
+      run: |
+        if (Test-Path "C:\Bin\IIS\PTSalaries") {
+            while($true) {
+                try {
+                    Remove-Item "C:\Bin\IIS\PTSalaries" -Recurse -ErrorAction Stop
+                    break
+                } catch {
+                    Write-Output "Removing failed, retrying..."
+                    Start-Sleep -Seconds 1
+                }
+            }
+        }
+
+    - name: Copy web page to IIS
+      shell: cmd
+      run: xcopy "ProductivityTools.Salaries.Api\bin\Release\net9.0\publish\*" "C:\Bin\IIS\PTSalaries\" /O /X /E /H /K /Y
+
+    - name: Start IIS Site
+      shell: cmd
+      run: "%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTSalaries"
+
+    - name: Configure SQL Login
+      shell: cmd
+      run: sqlcmd -S ".\SQL2022" -q "IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'IIS APPPOOL\PTSalaries') CREATE LOGIN [IIS APPPOOL\PTSalaries] FROM WINDOWS WITH DEFAULT_DATABASE=[PTSalaries];"
+
+    - name: Configure SQL User
+      shell: cmd
+      run: sqlcmd -S ".\SQL2022" -q "USE PTSalaries; IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'IIS APPPOOL\PTSalaries') CREATE USER [IIS APPPOOL\PTSalaries] FOR LOGIN [IIS APPPOOL\PTSalaries];"
+
+    - name: Grant SQL Permissions
+      shell: cmd
+      run: sqlcmd -S ".\SQL2022" -q "USE PTSalaries; ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTSalaries];"
