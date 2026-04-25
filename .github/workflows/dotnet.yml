@@ -85,7 +85,10 @@ jobs:
 
     - name: Copy web page to IIS
       shell: cmd
-      run: xcopy "ProductivityTools.Salaries.Api\bin\Release\net9.0\publish\*" "C:\Bin\IIS\PTSalaries\" /O /X /E /H /K /Y
+      # Added robocopy to bypass Windows 260 character path limit
+      run: |
+        robocopy "ProductivityTools.Salaries.Api\bin\Release\net9.0\publish" "C:\Bin\IIS\PTSalaries" /E /IS /IT
+        if %ERRORLEVEL% LEQ 7 exit /b 0
 
     - name: Start IIS Site
       shell: cmd
