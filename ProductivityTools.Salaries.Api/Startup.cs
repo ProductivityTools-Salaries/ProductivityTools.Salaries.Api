@@ -54,7 +54,10 @@ namespace ProductivityTools.Sallaries
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3000", "https://salariesweb.z35.web.core.windows.net", "https://ptservicestatus-309299231472.us-central1.run.app","https://pt-salaries.web.app","https://salaries.productivitytools.top").AllowAnyHeader().AllowAnyMethod();
+                                      builder.WithOrigins("http://localhost:3000", "https://salariesweb.z35.web.core.windows.net", "https://ptservicestatus-309299231472.us-central1.run.app","https://pt-salaries.web.app",
+                                      "https://salaries.productivitytools.top",
+                                       "https://pt-service-status-93484780890.us-central1.run.app",
+        "https://service-status.productivitytools.top").AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 
