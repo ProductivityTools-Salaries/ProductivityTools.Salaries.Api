@@ -64,6 +64,14 @@ jobs:
         }
         Create "PTSalaries" "*:8006" "C:\Bin\IIS\PTSalaries"
 
+    - name: Open Firewall Port 8006
+      shell: powershell
+      run: |
+        if (!(Get-NetFirewallRule -DisplayName "PTSalaries 8006" -ErrorAction SilentlyContinue)) {
+            New-NetFirewallRule -DisplayName "PTSalaries 8006" -Direction Inbound -LocalPort 8006 -Protocol TCP -Action Allow
+        }
+
+
     - name: Stop IIS Site
       shell: cmd
       run: "%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTSalaries"
